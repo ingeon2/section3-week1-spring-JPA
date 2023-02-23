@@ -30,7 +30,6 @@ public class JpaBasicConfig {
 
     private void example01() { //영속성 컨텍스트에 엔티티 저장
         Member member = new Member("hgd@gmail.com");
-
         em.persist(member);
 
         //영속성 컨텍스트에 member 객체가 잘 저장되었는지 find(Member.class, 1L) 메서드로 조회 (★영속성 컨텍스트에서 조회)
