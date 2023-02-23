@@ -20,7 +20,7 @@ public class JpaBasicConfig {
         this.tx = em.getTransaction();
 
         return args -> {
-            // TODO 이 곳에 학습할 코드를 타이핑하세요!
+            // TODO 이 곳에 학습할 코드를 타이핑
         };
     }
 }
