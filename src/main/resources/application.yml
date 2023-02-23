@@ -7,5 +7,6 @@ spring:
     url: jdbc:h2:mem:test     # (2) JDBC URL
   jpa:
     hibernate:
-      ddl-auto: create
-    show-sql: true
+      ddl-auto: create #Spring Data JDBC에서는 schema.sql 파일을 이용해 테이블 생성을 위한 스키마를 직접 지정해 주어야 했지만
+                       #JPA에서는 이의 설정을 추가하면 JPA가 자동으로 데이터베이스에 테이블을 생성
+    show-sql: true # 동작 과정을 이해위해 로그 기록
