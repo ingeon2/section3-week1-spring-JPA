@@ -36,7 +36,7 @@ public class Member {
     @Column(nullable = false, name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "member") //
+    @OneToMany(mappedBy = "member") //관계맺을 클래스가 갖고있는 현재 클래스에 대한 외래키는 member(테이블상에서는 컬럼명 MEMBER_ID)
     private List<Order> orders = new ArrayList<>();
 
     //여 아래부터는 생성자와 매서드

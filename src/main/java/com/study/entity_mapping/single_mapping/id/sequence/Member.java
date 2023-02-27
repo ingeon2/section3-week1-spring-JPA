@@ -1,4 +1,4 @@
-package com.study.entity_mapping.single_mapping.sequence;
+package com.study.entity_mapping.single_mapping.id.sequence;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

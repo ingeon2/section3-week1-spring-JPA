@@ -1,14 +1,17 @@
-package com.study;
+package com.study.basic;
 
-import com.study.entity.Member;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
+@Profile("basic")
+@EntityScan(basePackageClasses = {JpaBasicConfig.class})
 @Configuration
 //@Configuration 애너테이션을 추가하면 Spring에서 Bean 검색 대상인 Configuration 클래스로 간주해서
 //아래와 같이 @Bean 애너테이션이 추가된 메서드를 검색한 후, 해당 메서드에서 리턴하는 객체를 Spring Bean으로 추가
@@ -32,7 +35,9 @@ public class JpaBasicConfig {
         Member member = new Member("hgd@gmail.com");
         em.persist(member);
 
-        //영속성 컨텍스트에 member 객체가 잘 저장되었는지 find(Member.class, 1L) 메서드로 조회 (★영속성 컨텍스트에서 조회)
+        //영속성 컨텍스트에 member 객체가 잘 저장되었는지 find(Member.class, 1L) 메서드로 조회
+        // (★데이터베이스가 아닌 영속성 컨텍스트에서 조회)
+        //이후에 영속성 컨텍스트에 없으면 DB로 간다.
         Member resultMember = em.find(Member.class, 1L); //첫 번째 파라미터는 조회 할 엔티티 클래스의 타입, 두 번째 파라미터는 조회 할 엔티티 클래스의 식별자 값.
         System.out.println("Id: " + resultMember.getMemberId() + ", email: " + resultMember.getEmail());
     }
@@ -51,7 +56,7 @@ public class JpaBasicConfig {
         Member resultMember2 = em.find(Member.class, 2L);
         System.out.println(resultMember2 == null);
         //여기서 중요한것! 영속성 저장은 member 객체밖에 안했다! 리절트멤버2는 못찾아 그러니까 리절트멤버2는 널값이 맞지.
-        //영속성 컨텍스트에서 식별자 값이 2L인 member 객체가 존재하지 않기 때문에 테이블에 직접 SELECT 쿼리를 전송.(꼭 이해하기!!!!!!!!!)
+        //영속성 컨텍스트 + DB 에서 식별자 값이 2L인 member 객체가 존재하지 않기 때문에 테이블에 직접 SELECT 쿼리를 전송.(꼭 이해하기!!!!!!!!!)
 
     }
 
@@ -72,7 +77,7 @@ public class JpaBasicConfig {
         em.persist(member2);
 
         tx.commit(); //영속성 컨텍스트에 저장되어 있는 member 객체를 데이터베이스의 테이블에 저장.
-        //member에 대한 INSERT 쿼리는 실행되어 영속성 컨텍스트에 있는(JPA의 P) 쓰기 지연 SQL 저장소에서 사라짐.
+        //member에 대한 INSERT 쿼리가 커밋에 의해 실행되어 영속성 컨텍스트에 있는(JPA의 P) 쓰기 지연 SQL 저장소에서 사라짐.
         //tx.commit()을 하기 전까지는 em.persist()를 통해 쓰기 지연 SQL 저장소에 등록된 INSERT 쿼리가 실행이 되지 않음.
         //따라서 테이블에 데이터가 저장이 되지 않음.
         

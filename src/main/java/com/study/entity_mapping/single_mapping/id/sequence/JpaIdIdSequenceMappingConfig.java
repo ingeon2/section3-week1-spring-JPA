@@ -1,13 +1,18 @@
-package com.study.entity_mapping.single_mapping.sequence;
+package com.study.entity_mapping.single_mapping.id.sequence;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
+
+@Profile("id-sequence")
+@EntityScan(basePackageClasses = {JpaIdIdSequenceMappingConfig.class})
 @Configuration
 public class JpaIdIdSequenceMappingConfig {
     private EntityManager em;

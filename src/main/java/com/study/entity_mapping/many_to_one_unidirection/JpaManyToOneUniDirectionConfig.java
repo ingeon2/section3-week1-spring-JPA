@@ -1,13 +1,17 @@
 package com.study.entity_mapping.many_to_one_unidirection;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
+@Profile("many-to-one-uni")
+@EntityScan(basePackageClasses = {JpaManyToOneUniDirectionConfig.class})
 @Configuration
 public class JpaManyToOneUniDirectionConfig { //다대일 매핑을 이용한 회원과 주문 정보 저장
     private EntityManager em;
