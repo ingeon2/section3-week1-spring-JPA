@@ -27,7 +27,7 @@ public class JpaBasicConfig {
         this.tx = em.getTransaction(); //EntityManager를 통해서 Transaction 객체를 얻음. JPA에서는 이 Transaction 객체를 기준으로 데이터베이스의 테이블에 데이터를 저장.
         
         return args -> {
-            example02();
+            //example02();
         };
     }
 
@@ -76,8 +76,8 @@ public class JpaBasicConfig {
         em.persist(member1); //persist(member) 메서드를 호출하면 영속성 컨텍스트에 member 객체의 정보들이 저장
         em.persist(member2);
 
-        tx.commit(); //영속성 컨텍스트에 저장되어 있는 member 객체를 데이터베이스의 테이블에 저장.
-        //member에 대한 INSERT 쿼리가 커밋에 의해 실행되어 영속성 컨텍스트에 있는(JPA의 P) 쓰기 지연 SQL 저장소에서 사라짐.
+        tx.commit(); //영속성 컨텍스트에 저장되어 있는 member1, 2 객체를 데이터베이스의 테이블에 저장.
+        //member1, 2에 대한 INSERT 쿼리가 커밋에 의해 실행되어 영속성 컨텍스트에 있는(JPA의 P) 쓰기 지연 SQL 저장소에서 사라짐.
         //tx.commit()을 하기 전까지는 em.persist()를 통해 쓰기 지연 SQL 저장소에 등록된 INSERT 쿼리가 실행이 되지 않음.
         //따라서 테이블에 데이터가 저장이 되지 않음.
         
